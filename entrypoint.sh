@@ -63,9 +63,9 @@ set -o xtrace
 git merge --no-edit --no-commit --strategy-option theirs --allow-unrelated-histories ${input_from_branch}
 
 # Checkout specific files from the current commit, ignoring errors
-git checkout ${commit_hash} templates/\*.json 2>/dev/null || true
-git checkout ${commit_hash} sections/\*.json 2>/dev/null || true
-git checkout ${commit_hash} locales/\*.json 2>/dev/null || true
+# git checkout ${commit_hash} templates/\*.json 2>/dev/null || true
+# git checkout ${commit_hash} sections/\*.json 2>/dev/null || true
+# git checkout ${commit_hash} locales/\*.json 2>/dev/null || true
 git checkout ${commit_hash} config/settings_data.json 2>/dev/null || true
 
 # Display the status after checkout
@@ -81,9 +81,9 @@ else
   echo "Changes detected, committing changes"
 
   # Add modified files to the git staging area, ignoring errors
-  git add templates/\*.json 2>/dev/null || true
-  git add sections/\*.json 2>/dev/null || true
-  git add locales/\*.json 2>/dev/null || true
+  # git add templates/\*.json 2>/dev/null || true
+  # git add sections/\*.json 2>/dev/null || true
+  # git add locales/\*.json 2>/dev/null || true
   git add config/settings_data.json 2>/dev/null || true
 
   # Commit the changes with a message indicating the branches involved in the merge
