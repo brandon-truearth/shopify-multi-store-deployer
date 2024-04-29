@@ -62,6 +62,8 @@ set -o xtrace
 # Perform the merge operation without committing and favoring 'theirs' for conflicts
 git merge --no-edit --no-commit --strategy-option theirs --allow-unrelated-histories ${input_from_branch}
 
+echo "${input_from_branch}"
+
 if [ "${input_from_branch}" == "live-US" ] || [ ${input_from_branch} == "live-CA" ] || [ ${input_from_branch} == "live-EU" ];
 then
         # Checkout specific files from the current commit, ignoring errors
