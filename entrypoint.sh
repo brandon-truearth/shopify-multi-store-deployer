@@ -62,11 +62,22 @@ set -o xtrace
 # Perform the merge operation without committing and favoring 'theirs' for conflicts
 git merge --no-edit --no-commit --strategy-option theirs --allow-unrelated-histories ${input_from_branch}
 
-# Checkout specific files from the current commit, ignoring errors
-# git checkout ${commit_hash} templates/\*.json 2>/dev/null || true
-# git checkout ${commit_hash} sections/\*.json 2>/dev/null || true
-# git checkout ${commit_hash} locales/\*.json 2>/dev/null || true
-git checkout ${commit_hash} config/settings_data.json 2>/dev/null || true
+if [[ ${input_from_branch} == *"live-"* ]];
+then
+        # Checkout specific files from the current commit, ignoring errors
+        git checkout ${commit_hash} assets/\*.* 2>/dev/null || true
+        git checkout ${commit_hash} layout/\*.liquid 2>/dev/null || true
+        git checkout ${commit_hash} sections/\*.liquid 2>/dev/null || true
+        git checkout ${commit_hash} snippets/\*.liquid 2>/dev/null || true
+
+else
+        # Checkout specific files from the current commit, ignoring errors
+        # git checkout ${commit_hash} templates/\*.json 2>/dev/null || true
+        # git checkout ${commit_hash} sections/\*.json 2>/dev/null || true
+        # git checkout ${commit_hash} locales/\*.json 2>/dev/null || true
+        git checkout ${commit_hash} config/settings_data.json 2>/dev/null || true
+fi
+
 
 # Display the status after checkout
 echo "Status Check: Post Checkout"
@@ -80,11 +91,20 @@ if [[ -z $(git status -s) ]]; then
 else
   echo "Changes detected, committing changes"
 
-  # Add modified files to the git staging area, ignoring errors
-  # git add templates/\*.json 2>/dev/null || true
-  # git add sections/\*.json 2>/dev/null || true
-  # git add locales/\*.json 2>/dev/null || true
-  git add config/settings_data.json 2>/dev/null || true
+if [[ ${input_from_branch} == *"live-"* ]];
+then
+        # Checkout specific files from the current commit, ignoring errors
+        git add ${commit_hash} assets/\*.* 2>/dev/null || true
+        git add ${commit_hash} layout/\*.liquid 2>/dev/null || true
+        git add ${commit_hash} sections/\*.liquid 2>/dev/null || true
+        git add ${commit_hash} snippets/\*.liquid 2>/dev/null || true
+else
+    # Add modified files to the git staging area, ignoring errors
+    # git add templates/\*.json 2>/dev/null || true
+    # git add sections/\*.json 2>/dev/null || true
+    # git add locales/\*.json 2>/dev/null || true
+    git add config/settings_data.json 2>/dev/null || true
+fi
 
   # Commit the changes with a message indicating the branches involved in the merge
   git commit -m "GitHub Action: Merge ${input_from_branch} into ${input_to_branch}"
