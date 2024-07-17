@@ -74,6 +74,7 @@ else
         # Checkout specific files from the current commit, ignoring errors
         git checkout ${commit_hash} templates/\index.json 2>/dev/null || true
         git checkout ${commit_hash} templates/\collection.fundraising.json 2>/dev/null || true
+        git checkout ${commit_hash} templates/\password.json 2>/dev/null || true
         # git checkout ${commit_hash} sections/\*.json 2>/dev/null || true
         # git checkout ${commit_hash} locales/\*.json 2>/dev/null || true
         git checkout ${commit_hash} config/settings_data.json 2>/dev/null || true
@@ -103,6 +104,7 @@ else
     # Add modified files to the git staging area, ignoring errors
     git add templates/\index.json 2>/dev/null || true
     git checkout ${commit_hash} templates/\collection.fundraising.json 2>/dev/null || true
+    git checkout ${commit_hash} templates/\password.json 2>/dev/null || true
     # git add sections/\*.json 2>/dev/null || true
     # git add locales/\*.json 2>/dev/null || true
     git add config/settings_data.json 2>/dev/null || true
